@@ -9,20 +9,24 @@ describe("Sinon tests mocking API", () => {
     });
 
     it("Fetch data without sinon", async () => {
-        const response = await apiFetch();
+        const response = await apiFetch(false);
         equal(response, 'Api responded: CrystalFightersGigShouldHappenInPoland');
+    });
+
+    it("Fetch data without sinon and promise is rejected", async () => {
+        const response = await apiFetch(true);
+        equal(response, 'Error was thrown');
     });
 
     it("Stub api with SinonJS", async () => {
         sinon.stub(api, 'fetchDataFromRemoteApi').returns(Promise.resolve('Subbed by Sinon'));
-        const response = await apiFetch();
+        const response = await apiFetch(false);
         equal(response, 'Subbed by Sinon');
     });
 
-    it("Stub api with SinonJS and throw Exception", async () => {
+    it("Stub api with SinonJS and simulate throw Exception", async () => {
         sinon.stub(api, 'fetchDataFromRemoteApi').throws(new Error('Api Error'));
-        const response = await apiFetch();
+        const response = await apiFetch(false);
         equal(response, 'Error was thrown');
     });
-
 });
