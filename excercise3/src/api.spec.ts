@@ -2,7 +2,6 @@ import { equal, throws } from "assert";
 import { firstFetch, secondFetch, apiFetch } from './api';
 import * as api from './api';
 import * as sinon from 'sinon';
-// import * as api from './api';
 
 describe("Sinon tests mocking API", () => {
 
