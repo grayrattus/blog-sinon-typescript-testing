@@ -9,7 +9,7 @@ describe("Sinon tests mocking API", () => {
         sinon.restore();
     });
 
-    it("How sinon works test", async () => {
+    it("How sinon works test", () => {
         console.log('Before stub', inspect(api, { showHidden: true }));
         sinon.stub(api, 'fetchData').returns('Mocked by Sinon');
         console.log('After stub', inspect(api, { showHidden: true }));
