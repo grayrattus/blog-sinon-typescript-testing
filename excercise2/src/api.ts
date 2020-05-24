@@ -1,33 +1,13 @@
-import { simulatedQuery } from "./api-dependency";
-
-export const fetchData = async (name: string) => {
-    return await simulatedQuery(name);
+export const fetchDataFromRemoteApi = async (): Promise<string> => {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve('Api responded: CrystalFightersGigShouldHappenInPoland'), 1500);
+    })
 }
 
-const hareKryszna = 'harerama';
-
-export const promission = async (name: string) => {
-    return Promise.resolve(hareKryszna);
-}
-
-
-export function setup() {
-    const hereIsMyFunction = async (name: string) => {
-        return await promission(name);
-    }
-    
-    return {
-        hereIsMyFunction
-    }
-}
-
-export async function asyncSetupBig() {
-    await promission('keku');
-    const hereIsMyFunction = async (name: string) => {
-        return await promission(name);
-    }
-    
-    return {
-        hereIsMyFunction
+export const apiFetch = async () => {
+    try {
+        return await fetchDataFromRemoteApi();
+    } catch (error) {
+        return 'Error was thrown';
     }
 }
