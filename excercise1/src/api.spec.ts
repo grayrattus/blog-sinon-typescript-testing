@@ -1,34 +1,20 @@
 import { equal } from "assert";
-import * as api from './api-dependency';
+import * as api from './api';
 import { fetchData } from './api';
 import * as sinon from 'sinon';
-
-import * as setupapi from './api';
+import { inspect } from 'util';
 
 describe("Sinon tests mocking API", () => {
     afterEach(() => {
         sinon.restore();
     });
 
-    it("Fetch data test", async () => {
-        const stub = sinon.stub(api, 'simulatedQuery').returns(Promise.resolve('Sinon mocked'))
+    it("How sinon works test", async () => {
+        console.log('Before stub', inspect(api, { showHidden: true }));
+        sinon.stub(api, 'fetchData').returns('Mocked by Sinon');
+        console.log('After stub', inspect(api, { showHidden: true }));
 
-        equal(await fetchData('Hello'), 'Sinon mocked');
-        stub.calledOnceWith('Hello');
+        equal(fetchData('test'), 'Mocked by Sinon');
+        equal((api.fetchData as any).wrappedMethod('test'), 'Original message: I would love to rave on Crystal Fighters: test');
     });
-
-    it("Fetch data test1", async () => {
-        sinon.stub(setupapi, 'promission').returns(Promise.resolve('Sinon mocked'));
-        equal(await setupapi.setup().hereIsMyFunction('fsdf'), 'Sinon mocked');
-    });
-
-    it("Fetch data test2", async () => {
-        sinon.stub(setupapi, 'promission').returns(Promise.resolve('Sinon mocked'));
-        equal(await(await setupapi.asyncSetupBig()).hereIsMyFunction('fsdf'), 'Sinon mocked');
-    });
-
-    it("Fetch data test3", async () => {
-        equal(await setupapi.setup().hereIsMyFunction('fsdf'), 'harerama');
-    });
-
 });
